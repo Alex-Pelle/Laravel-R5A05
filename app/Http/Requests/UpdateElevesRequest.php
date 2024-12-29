@@ -24,7 +24,7 @@ class UpdateElevesRequest extends FormRequest
         return [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'dateNaissance' => 'required|date|min:0.1',
+            'dateNaissance' => 'required|date|min:0.1|before_or_equal:today',
             'numeroEtudiant' => 'required|string|max:255|unique:eleves,numeroEtudiant',
             'email' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',

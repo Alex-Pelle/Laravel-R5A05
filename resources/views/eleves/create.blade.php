@@ -41,14 +41,7 @@
                 <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
             </div>
 
-            <div class="form-group">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    @csrf <input type="file" name="image">
-                    <button type="submit">Télécharger</button>
-                </form>
 
-
-            </div>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
