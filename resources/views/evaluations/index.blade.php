@@ -4,7 +4,7 @@
 @section('content')
     <div class="container">
         <h1>Liste des evaluations</h1>
-        <a href="{{ url('/') }}" class="btn btn-secondary">Retour</a>
+        <a href="{{ route("home") }}" class="btn btn-secondary">Retour</a>
         <a href="{{ route('evaluations.create') }}" class="btn btn-primary mb-3">Ajouter un evaluations</a>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
