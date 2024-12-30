@@ -11,7 +11,7 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\NonAuthenticate;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {return view('root');});
+
 
 
 
@@ -35,6 +35,7 @@ Route::middleware(Authenticate::class)->group(function () {
 });
 
 Route::middleware(NonAuthenticate::class)->group(function () {
+    Route::get('/', function () {return view('root');});
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
     Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::get('/register', [LoginController::class, 'showRegisterForm'])->name('register.form');

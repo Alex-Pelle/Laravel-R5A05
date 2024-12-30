@@ -31,7 +31,7 @@
                     <td>{{ $eleve->email }}</td>
                     <td><img src="{{ asset('storage/' . $eleve->image) }}" alt="Image"></td>
                     <td>
-                        @if(Gate::allows('is-professeur'))
+                        @if(!Gate::allows('is-professeur'))
                             <a href="{{ route('eleves.edit', ['elefe' => $eleve->id]) }}" class="btn btn-warning btn-sm">Modifier</a>
                             <a href="{{ route('eleves.show', ['elefe' => $eleve->id]) }}" class="btn btn-info btn-sm">Voir</a>
                         @endif

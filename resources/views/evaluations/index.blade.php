@@ -6,7 +6,7 @@
         <h1>Liste des evaluations</h1>
         <a href="{{ route("home") }}" class="btn btn-secondary">Retour</a>
         @if(Gate::allows('is-professeur'))
-            <a href="{{ route('evaluations.create') }}" class="btn btn-primary mb-3">Ajouter un evaluations</a>
+            <a href="{{ route('evaluations.create') }}" class="btn btn-primary mb-3">Ajouter une evaluation</a>
         @endif
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

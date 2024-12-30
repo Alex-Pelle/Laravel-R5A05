@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEvaluationEleveRequest;
 use App\Http\Requests\UpdateElevesEvaluationRequest;
+use App\Mail\NoteNotificationMail;
+use App\Mail\NoteUpdateNotificationMail;
 use App\Models\Eleve;
 use App\Models\Evaluation;
 use App\Models\EvaluationEleve;
+use App\Models\Modules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Mail;
 
 class EvaluationEleveController extends Controller
 {
@@ -46,6 +51,23 @@ class EvaluationEleveController extends Controller
             'note' => $validatedData['note'],
         ]);
 
+        $eleve = Eleve::find($validatedData['idEleve']);
+
+        $now = Date::now();
+        $evalulu = Evaluation::find($evaluation);
+
+        $noteDetails = [
+            'eleve' => $eleve->nom . ' ' . $eleve->prenom,
+            'note' => $validatedData['note'],
+            'date' => $now->toDateTimeString(),
+            'examen' => $evalulu->titreEval,
+            'module' => Modules::find($evalulu->moduleEval)->code
+        ];
+
+
+        // Envoyer l'email
+        Mail::to($eleve->email)->send(new NoteNotificationMail($noteDetails));
+
         return redirect()->route('notes.index', ['evaluation' =>$evaluation])->with('success', 'Note ajoutée à l\'évaluation');
     }
 
@@ -78,6 +100,22 @@ class EvaluationEleveController extends Controller
         $eval->update([
             'note' => $validatedData['note'],
         ]);
+
+        $eleve = Eleve::find($eval->idEleve);
+        $now = Date::now();
+        $evalulu = Evaluation::find($evaluation);
+
+        $noteDetails = [
+            'eleve' => $eleve->nom . ' ' . $eleve->prenom,
+            'note' => $validatedData['note'],
+            'date' => $now->toDateTimeString(),
+            'examen' => $evalulu->titreEval,
+            'module' => Modules::find($evalulu->moduleEval)->code
+        ];
+
+
+        // Envoyer l'email
+        Mail::to($eleve->email)->send(new NoteUpdateNotificationMail($noteDetails));
 
         return redirect()->route('notes.index', ['evaluation' => $eval])
             ->with('success', 'Note modifiée avec succès');
