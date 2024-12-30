@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Modifier l'élève' : {{ $eleves->nom }}{{ $eleves->prenom }}</h1>
+        <h1>Modifier l'élève : {{ $eleves->nom }} {{ $eleves->prenom }}</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -19,6 +19,7 @@
         @csrf
             @method('PUT')
 
+
             <div class="form-group">
                 <label for="Nom">Nom</label>
                 <input type="text" name="nom" id="nom" class="form-control" value="{{ old('nom', $eleves->nom) }}" required>
@@ -34,15 +35,13 @@
                 <input type="date" name="dateNaissance" id="dateNaissance" class="form-control" value="{{ old('dateNaissance', $eleves->dateNaissance) }}" required>
             </div>
 
-            <div class="form-group">
-                <label for="Email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $eleves->email) }}" required>
-            </div>
 
-            <div class="form-group">
-                <label for="Numero Etudiant">Numéro Etudiant</label>
-                <input type="number" name="numeroEtudiant" id="numeroEtudiant" class="form-control" value="{{ old('numeroEtudiant') }}" required>
-            </div>
+
+            <input type="hidden" name="email" id="email" class="form-control" value="{{ old('email', $eleves->email) }}" required>
+
+            <input type="hidden" name="numeroEtudiant" id="numeroEtudiant" class="form-control" value="{{ old('numeroEtudiant', $eleves->numeroEtudiant) }}" required>
+
+
 
             <div class="form-group">
                 <label for="image">Image</label>

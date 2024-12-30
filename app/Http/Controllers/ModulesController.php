@@ -22,6 +22,7 @@ class ModulesController extends Controller
      */
     public function create()
     {
+        $this->basicBehavior();
         return view('modules.create');
     }
 
@@ -31,6 +32,7 @@ class ModulesController extends Controller
      */
     public function store(StoreModulesRequest $request)
     {
+        $this->basicBehavior();
         // Validation automatique grâce à StoreModulesRequest
         $validatedData = $request->validated();
 
@@ -49,10 +51,10 @@ class ModulesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Modules $modules)
+    public function show($modules)
     {
-
-        return view('modules.show', compact('modules'));
+        $module = Modules::find($modules);
+        return view('modules.show', compact('module'));
     }
 
 
@@ -61,6 +63,7 @@ class ModulesController extends Controller
      */
     public function edit($module)
     {
+        $this->basicBehavior();
         $modules = Modules::find($module);
         return view('modules.edit', compact('modules'));
     }
@@ -70,6 +73,7 @@ class ModulesController extends Controller
      */
     public function update(UpdateModulesRequest $request, $module)
     {
+        $this->basicBehavior();
         // Validation automatique grâce à UpdateModulesRequest
         $modules = Modules::find($module);
         $validatedData = $request->validated();
@@ -89,6 +93,7 @@ class ModulesController extends Controller
      */
     public function destroy($module)
     {
+        $this->basicBehavior();
         $modules = Modules::find($module);
         $modules->delete();
 

@@ -50,7 +50,8 @@
 
         @endif
 
-        <a href="{{ route('eleves.index') }}" class="btn btn-secondary">Retour</a>
+        <a href="{{ route('home') }}" class="btn btn-secondary">Retour</a>
+        <a href="{{ route('eleves.edit', ['elefe' => $eleves->id]) }}" class="btn btn-warning btn-sm">Modifier</a>
     </div>
 @endsection
 

@@ -16,6 +16,7 @@ class EvaluationEleveController extends Controller
      */
     public function index($evaluation)
     {
+        $this->basicBehavior();
         $evalEleve = EvaluationEleve::where('idEval', $evaluation)->get();
         return view('notes.index', compact('evalEleve', 'evaluation'));
     }
@@ -25,6 +26,7 @@ class EvaluationEleveController extends Controller
      */
     public function create($evaluation)
     {
+        $this->basicBehavior();
         $elevesAvecNotes = EvaluationEleve::where('idEval', $evaluation)->pluck('idEleve');
 
         $eleves = Eleve::whereNotIn('id', $elevesAvecNotes)->get();
@@ -36,6 +38,7 @@ class EvaluationEleveController extends Controller
      */
     public function store(StoreEvaluationEleveRequest $request, $evaluation)
     {
+        $this->basicBehavior();
         $validatedData = $request->validated();
         EvaluationEleve::create([
             'idEval' => $evaluation,
@@ -53,6 +56,7 @@ class EvaluationEleveController extends Controller
      */
     public function edit($evaluationEleve,$evaluation)
     {
+        $this->basicBehavior();
         $evalEleve = EvaluationEleve::find($evaluationEleve);
         return view('notes.edit', compact('evalEleve','evaluation'));
     }
@@ -62,6 +66,7 @@ class EvaluationEleveController extends Controller
      */
     public function update(UpdateElevesEvaluationRequest $request, $evaluationEleve, $evaluation)
     {
+        $this->basicBehavior();
         $eval = EvaluationEleve::find($evaluationEleve);
 
         if (!$eval) {
@@ -80,6 +85,7 @@ class EvaluationEleveController extends Controller
 
     public function show($evaluationEleve)
     {
+        $this->basicBehavior();
         $evalEleve = EvaluationEleve::find($evaluationEleve);
         return redirect()->route('notes.index',["evaluation"=>$evalEleve->idEval]);
     }
@@ -90,6 +96,7 @@ class EvaluationEleveController extends Controller
      */
     public function destroy($evaluation, $evaluationEleve)
     {
+        $this->basicBehavior();
         $evaluationEleve = EvaluationEleve::find($evaluationEleve);
 
         // Vérifiez si la note existe

@@ -14,7 +14,8 @@
 <div class="py-4">
     @auth
         <div style="display: flex; justify-content: flex-end; align-items: center; font-size: 1rem; gap: 10px;">
-            <p style="padding-right: 0"><strong>{{ Auth::user()->name }}</strong></p>
+            <p style="padding-right: 0"><strong>{{ Auth::user()->nom }} {{ Auth::user()->prenom }}</strong></p>
+            <p style="padding-right: 0">{{ Auth::user()->role }}</p>
             <form action="{{ route('logout') }}" method="GET" style="padding-right: 5%;">
                 @csrf
                 <button type="submit" style="cursor: pointer; background: none; border: none; padding-right: 0; color: inherit;">

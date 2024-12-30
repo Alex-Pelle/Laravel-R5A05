@@ -28,6 +28,7 @@ class EvaluationController extends Controller
      */
     public function create()
     {
+        $this->basicBehavior();
         $modules = Modules::all();
 
         return view('evaluations.create',compact('modules'));
@@ -38,6 +39,7 @@ class EvaluationController extends Controller
      */
     public function store(StoreEvaluationRequest $request)
     {
+        $this->basicBehavior();
         // Validation automatique grâce à StoreModulesRequest
         $validatedData = $request->validated();
 
@@ -68,6 +70,7 @@ class EvaluationController extends Controller
      */
     public function edit($evaluation)
     {
+        $this->basicBehavior();
         $modules = Modules::all();
         $eval= Evaluation::find($evaluation);
 
@@ -79,6 +82,7 @@ class EvaluationController extends Controller
      */
     public function update(UpdateEvaluationRequest $request,  $evaluation)
     {
+        $this->basicBehavior();
         $eval = Evaluation::find($evaluation);
         $validatedData = $request->validated();
 
@@ -99,6 +103,7 @@ class EvaluationController extends Controller
      */
     public function destroy( $evaluation)
     {
+        $this->basicBehavior();
         $eval = Evaluation::find($evaluation);
         $eval->delete();
 

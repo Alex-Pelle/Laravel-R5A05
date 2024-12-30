@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationEleve extends Model
 {
@@ -31,4 +32,11 @@ class EvaluationEleve extends Model
     public function getLinkedEleve(): Eleve {
         return Eleve::find($this->idEleve);
     }
+
+    public static function getNoteForEvaluation($evalId) {
+        $eleve = Eleve::where('email',Auth::user()->email)->first();
+        return EvaluationEleve::where('idEleve',$eleve->id)->where('idEval',$evalId)->value('note');
+    }
+
 }
+

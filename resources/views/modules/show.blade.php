@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="container">
-        <h1>Détails du module : {{ $modules->nom }}</h1>
+        <h1>Détails du module : {{ $module->nom }}</h1>
 
         <div class="card">
             <div class="card-header">
-                {{ $modules->code }}
+                <h5 class="card-title">{{ $module->nom }}</h5>
             </div>
             <div class="card-body">
-                <h5 class="card-title">{{ $modules->nom }}</h5>
-                <p class="card-text">Coefficient : {{ $modules->coefficient }}</p>
+                <p class="card-text">Code : {{ $module->code }}</p>
+                <p class="card-text">Coefficient : {{ $module->coefficient }}</p>
                 <a href="{{ route('modules.index') }}" class="btn btn-secondary">Retour</a>
             </div>
         </div>

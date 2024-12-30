@@ -15,14 +15,21 @@
         @endif
         <form action="{{ route('login') }}" method="POST">
             @csrf
-            <label for="email">Email :</label>
-            <input type="email" name="email" id="email" required>
-            <br>
-            <label for="password">Mot de passe :</label>
-            <input type="password" name="password" id="password" required>
-            <br>
-            <button type="submit">Se connecter</button>
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" >Se connecter</button>
+                <p>Vous n'avez pas de compte ? <a href="{{ route('register') }}">Inscrivez-vous ici</a>.</p>
+            </div>
+
         </form>
-        <p>Vous n'avez pas de compte ? <a href="{{ route('register') }}">Inscrivez-vous ici</a>.</p>
+
     </div>
 @endsection

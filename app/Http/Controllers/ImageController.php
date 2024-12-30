@@ -8,6 +8,9 @@ class ImageController extends Controller
 {
     public function upload(Request $request)
     {
+        if($this->isProf()) {
+            abort(403);
+        }
         // Validation du fichier téléchargé
         $request->validate([
             'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',

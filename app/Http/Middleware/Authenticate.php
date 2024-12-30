@@ -20,6 +20,7 @@ class Authenticate
             return redirect()->route('login.form')->with('error', 'Veuillez vous connecter pour accéder à cette page.');
         }
 
+
         return $next($request);
     }
 }

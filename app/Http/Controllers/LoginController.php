@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Eleve;
 use App\Models\Evaluation;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
@@ -59,18 +60,39 @@ class LoginController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'nom' => 'required|string|max:255',
+            'email' => 'required|email||max:255|unique:users,email',
+            'prenom' => 'required|string|max:255',
             'password' => 'required|confirmed|min:6',
+            'role' => 'required',
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'nom' => $request->nom,
             'email' => $request->email,
+            'prenom' => $request->prenom,
             'password' => bcrypt($request->password),
+            'role' => $request->role
         ]);
 
-       Auth::login($user);
+
+        if ($request->role === 'Eleve') {
+            $request->validate([
+                'dateNaissance' => 'required|date|min:0.1|before_or_equal:today',
+                'numeroEtudiant' => 'required|string|max:255|unique:eleves,numeroEtudiant',
+                'email' => 'required|string|max:255|unique:eleves,email',
+                'role' => 'required',
+            ]);
+            Eleve::create([
+                'nom' => $request->nom,
+                'email' => $request->email,
+                'prenom' => $request->prenom,
+                'dateNaissance' => $request->dateNaissance,
+                'numeroEtudiant' => $request->numeroEtudiant,
+            ]);
+        }
+
+        Auth::login($user);
 
         return redirect()->intended('home')->with('success', 'Inscription réussie, bienvenue ' . $user->name . ' !');
     }

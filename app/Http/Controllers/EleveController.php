@@ -7,6 +7,10 @@ use App\Http\Requests\StoreElevesRequest;
 use App\Http\Requests\UpdateElevesRequest;
 use App\Models\Eleve;
 use App\Models\EvaluationEleve;
+
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -17,8 +21,15 @@ class EleveController extends Controller
      */
     public function index()
     {
-        $eleves = Eleve::all();
-        return view('eleves.index', compact('eleves'));
+        if($this->isProf()) {
+            $eleves = Eleve::all();
+            return view('eleves.index', compact('eleves'));
+        } else {
+            $email = Auth::user()->email ;
+            $eleve = Eleve::where('email',$email)->first();
+            return $this->show($eleve->id);
+        }
+
     }
 
     /**
@@ -26,6 +37,7 @@ class EleveController extends Controller
      */
     public function create()
     {
+        $this->basicBehavior();
         return view('eleves.create');
     }
 
@@ -35,7 +47,7 @@ class EleveController extends Controller
      */
     public function store(StoreElevesRequest $request)
     {
-
+        $this->basicBehavior();
         $validatedData = $request->validated();
 
 
@@ -87,6 +99,7 @@ class EleveController extends Controller
      */
     public function update(UpdateElevesRequest $request, $eleve)
     {
+        $this->basicBehavior();
         $eleves = Eleve::find($eleve);
 
         // Validation automatique grâce à UpdateElevesRequest
@@ -126,10 +139,13 @@ class EleveController extends Controller
      */
     public function destroy( $eleve)
     {
+        $this->basicBehavior();
         $eleves = Eleve::find($eleve);
         $eleves->delete();
 
         // Redirection avec un message de succès
         return redirect()->route('eleves.index')->with('success', 'Eleve supprimé avec succès');
     }
+
+
 }
